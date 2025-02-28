@@ -1,7 +1,7 @@
 // frontend/src/App.jsx
 import React from 'react';
 
- // import PhotoListItem from './components/PhotoListItem';
+ import PhotoListItem from './components/PhotoListItem';
  import PhotoList from './components/PhotoList';
  import './App.scss';
 
@@ -18,7 +18,7 @@ const sampleDataForPhotoListItem = {
 
  const App = () => (
    <div className="App">
-    <PhotoListItem {...sampleDataForPhotoListItem} />
+    <PhotoListItem photo={sampleDataForPhotoListItem} />
    </div>
  )
 
