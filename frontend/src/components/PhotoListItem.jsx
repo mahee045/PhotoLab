@@ -1,7 +1,7 @@
 import "../styles/PhotoListItem.scss";
 
 
-const PhotoListItem = ({ photoId, location, imageSource, username, profile }) => {
+const PhotoListItem = ({ photoId, location, imageSource, username, profile, liked }) => {
   return (
     <div className="photo-list__item" key={photoId}>
       <img src={imageSource} alt={`Photo taken by ${username}`} className="photo-list__image"/>
@@ -14,6 +14,11 @@ const PhotoListItem = ({ photoId, location, imageSource, username, profile }) =>
           </div>
         </div>
       </div>
+
+      <p className="photo-list__liked-status">
+        {liked ? "❤️ Liked" : "♡ Not Liked"}
+      </p>
+
     </div>
   );
 };

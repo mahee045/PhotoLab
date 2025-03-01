@@ -14,12 +14,21 @@ const sampleDataForPhotoListItem = {
   imageSource: "/Image-1-Regular.jpeg",
   username: "Joe Example",
   profile: "/profile-1.jpg",
+  liked: false, 
 };
 
- const App = () => (
-   <div className="App">
-    <PhotoListItem {...sampleDataForPhotoListItem} />
-   </div>
- )
 
+const photos = new Array(3).fill(null).map((_, index) => ({
+  ...sampleDataForPhotoListItem,
+  photoId: `${index + 1}`, 
+  liked: false,
+}));
+
+const App = () => (
+  <div className="App">
+    {photos.map((photo) => (
+      <PhotoListItem key={photo.photoId} {...photo} />
+    ))}
+  </div>
+);
 export default App;
