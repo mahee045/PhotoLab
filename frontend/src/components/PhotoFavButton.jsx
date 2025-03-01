@@ -3,11 +3,11 @@ import '../styles/PhotoFavButton.scss';
 import FavIcon from "./FavIcon"; // ✅ Import the base icon component
 import React, { useState } from "react";
 
-const PhotoFavButton = () => {
-  const [isFavorited, setIsFavorited] = useState(false); // ✅ Track favorite state
+const PhotoFavButton = ({liked=false}) => {
+  const [isFavorited, setIsFavorited] = useState(liked); // ✅ Track favorite state
 
   const handleClick = () => {
-    setIsFavorited(!isFavorited); // ✅ Toggle the state when clicked
+    setIsFavorited((prev) => !prev); // ✅ Toggle the state when clicked
     console.log("Favourite clicked:", !isFavorited);
   };
 
