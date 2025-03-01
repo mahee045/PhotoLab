@@ -14,14 +14,14 @@ const sampleDataForPhotoListItem = {
   imageSource: "/Image-1-Regular.jpeg",
   username: "Joe Example",
   profile: "/profile-1.jpg",
-  liked: false, 
+  liked: false,
+  
 };
 
 
 const photos = new Array(3).fill(null).map((_, index) => ({
   ...sampleDataForPhotoListItem,
   photoId: `${index + 1}`, 
-  liked: false,
 }));
 
 const App = () => (

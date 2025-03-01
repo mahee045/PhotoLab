@@ -1,7 +1,7 @@
 import "../styles/PhotoListItem.scss";
+import PhotoFavButton from "./PhotoFavButton";
 
-
-const PhotoListItem = ({ photoId, location, imageSource, username, profile, liked }) => {
+const PhotoListItem = ({ photoId, location, imageSource, username, profile, liked}) => {
   return (
     <div className="photo-list__item" key={photoId}>
       <img src={imageSource} alt={`Photo taken by ${username}`} className="photo-list__image"/>
@@ -15,10 +15,8 @@ const PhotoListItem = ({ photoId, location, imageSource, username, profile, like
         </div>
       </div>
 
-      <p className="photo-list__liked-status">
-        {liked ? "❤️ Liked" : "♡ Not Liked"}
-      </p>
 
+      <PhotoFavButton liked={liked}/>
     </div>
   );
 };
