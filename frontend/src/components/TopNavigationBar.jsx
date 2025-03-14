@@ -1,12 +1,14 @@
 import React from "react";
 import "../styles/TopNavigationBar.scss";
 import FavBadge from "./FavBadge"; //  Import FavBadge
+import TopicList from "./TopicList";
 
-const TopNavigationBar = ({ favoriteCount }) => { //  Receive favoriteCount as a prop
+const TopNavigationBar = ({ favoriteCount, onTopicSelect }) => { //  Make sure onTopicSelect is received
   return (
     <div className="top-nav-bar">
       <span className="top-nav-bar__logo">PhotoLabs</span> {/*  App Logo */}
-      <FavBadge count={favoriteCount} /> {/*  Show FavBadge with favorite count */}
+      <TopicList onTopicSelect={onTopicSelect} /> 
+      <FavBadge favoriteCountount={favoriteCount} /> 
     </div>
   );
 };

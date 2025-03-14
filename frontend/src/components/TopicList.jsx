@@ -1,7 +1,7 @@
 import "../styles/TopicList.scss";
 import TopicListItem from "./TopicListItem";
 
-const sampleDataForTopicList = [
+const topics = [
   {
     id: 1,
     slug: "topic-1",
@@ -20,10 +20,16 @@ const sampleDataForTopicList = [
 ];
 
 const TopicList = ( onTopicSelect) => {
+
+
   return (
     <div className="top-nav-bar__topic-list">
-       {sampleDataForTopicList.map((topic) => (
-        <TopicListItem key={topic.id} topic={topic} onClick={onTopicSelect} />
+      {topics.map((topic) => (
+        <TopicListItem 
+          key={topic.id} 
+          topic={topic} 
+          onClick={() => onTopicSelect(topic.slug)} // Call onTopicSelect when clicked
+        />
       ))}
     </div>
   );

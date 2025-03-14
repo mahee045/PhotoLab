@@ -9,7 +9,7 @@ const sampleDataForTopicListItem = {
 const TopicListItem = ({ topic, onClick }) => {
   return (
     <div className="topic-list__item" onClick={() => onClick(topic.slug)}>
-      {topic.label} 
+      {topic.title} 
     </div>
   );
 };
