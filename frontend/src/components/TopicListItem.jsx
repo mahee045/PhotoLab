@@ -6,10 +6,10 @@ const sampleDataForTopicListItem = {
   label: "Nature",
 };
 
-const TopicListItem = () => {
+const TopicListItem = ({ topic, onClick }) => {
   return (
-    <div className="topic-list__item">
-      {/* Insert React */}
+    <div className="topic-list__item" onClick={() => onClick(topic.slug)}>
+      {topic.label} 
     </div>
   );
 };
