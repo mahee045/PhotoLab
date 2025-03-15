@@ -3,18 +3,13 @@ import '../styles/PhotoFavButton.scss';
 import FavIcon from "./FavIcon"; // ✅ Import the base icon component
 import React, { useState } from "react";
 
-const PhotoFavButton = ({liked=false}) => {
-  const [isFavorited, setIsFavorited] = useState(liked);
-
-  const handleClick = () => {
-    setIsFavorited((prev) => !prev); // ✅ Toggle the state when clicked
-    console.log("Favourite clicked:", !isFavorited);
-  };
+const PhotoFavButton = ({ isFavorite, toggleFavorite }) => {
+ 
 
   return (
-    <div className="photo-list__fav-icon" onClick={handleClick}> {/* ✅ Clickable wrapper */}
+    <div className="photo-list__fav-icon" onClick={toggleFavorite}> {/* ✅ Clicking updates state */}
       <div className="photo-list__fav-icon-svg">
-        <FavIcon selected={isFavorited} displayAlert={false} /> {/* ✅ Corrected from `isFavorite` to `isFavorited` */}
+        <FavIcon selected={isFavorite} displayAlert={false} /> {/* ✅ Toggle icon */}
       </div>
     </div>
   );

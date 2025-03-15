@@ -2,6 +2,8 @@ import "../styles/PhotoListItem.scss";
 import PhotoFavButton from "./PhotoFavButton";
 
 const PhotoListItem = ({ photoId, location, imageSource, username, profile, isFavorite, toggleFavorite  }) => {
+
+  
   return (
     <div className="photo-list__item" key={photoId}>
       <img src={imageSource} alt={`Photo taken by ${username}`} className="photo-list__image"/>
