@@ -3,17 +3,18 @@ import "../styles/HomeRoute.scss";
 import TopNavigationBar from "../components/TopNavigationBar";
 import PhotoList from "../components/PhotoList";
 
-const HomeRoute = () => {
-  const [selectedTopic, setSelectedTopic] = useState("all"); // ✅ Track selected topic
-  const [favoriteCount, setFavoriteCount] = useState(0); // ✅ Track favorite count
-
+const HomeRoute = ({topics= [], photos= [], selectedTopic, setSelectedTopic, setFavoriteCount}) => {
+  
   return (
     <div className="home-route">
       <TopNavigationBar 
-        favoriteCount={favoriteCount} 
-        onTopicSelect={setSelectedTopic} // ✅ Allow topic selection
+        favoriteCount={0} 
+        onTopicSelect={setSelectedTopic} 
+        topics={topics}
       />
-      <PhotoList topic={selectedTopic} setFavoriteCount={setFavoriteCount} /> {/* ✅ Display photos */}
+      <PhotoList photos={photos} 
+        topic={selectedTopic} //  Use the passed state, don’t redeclare!
+        setFavoriteCount={setFavoriteCount}  /> {/* Display photos */}
     </div>
   );
 };

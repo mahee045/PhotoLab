@@ -52,10 +52,12 @@ const sampleDataForPhotoList = [
   },
 ];
 
-const PhotoList = () => {
+const PhotoList = ({photos = [], topic, setFavoriteCount}) => {
+  console.log("🔥 Photos received in PhotoList:", photos);
+  console.log("🔥 Selected Topic:", topic);
   return (
     <ul className="photo-list">
-      {sampleDataForPhotoList.map((photo) => (
+      {photos.map((photo) => (
         <PhotoListItem 
           key={photo.id} 
           photoId={photo.id}
