@@ -7,15 +7,30 @@ import topicsData from "./mocks/topics";
 const App = () => {
 
   const [selectedTopic, setSelectedTopic] = useState("all");
-  const [favoriteCount, setFavoriteCount] = useState(0); 
+  const [favoritePhotos, setFavoritePhotos] = useState([]); // ✅ Track favourited photos
+
+  // ✅ Toggle favourite photos
+  const toggleFavorite = (photoId) => {
+    setFavoritePhotos((prevFavorites) =>
+      prevFavorites.includes(photoId)
+        ? prevFavorites.filter((id) => id !== photoId) // Remove if already liked
+        : [...prevFavorites, photoId] // Add if not liked
+    );
+  };
+
+ 
   
   return (
     <div className="App">
-      <HomeRoute photos={photosData.photos}  
+      <HomeRoute 
+      photos={photosData.photos}  
         topics={topicsData.topics}
        selectedTopic={selectedTopic}
         setSelectedTopic={setSelectedTopic}
-        setFavoriteCount={setFavoriteCount}/> 
+        favoritePhotos={favoritePhotos} // ✅ Pass to HomeRoute
+        toggleFavorite={toggleFavorite} // ✅ Pass to HomeRoute
+        /> 
+        
     </div>
   );
 };

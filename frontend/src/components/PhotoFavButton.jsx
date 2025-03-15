@@ -4,7 +4,7 @@ import FavIcon from "./FavIcon"; // ✅ Import the base icon component
 import React, { useState } from "react";
 
 const PhotoFavButton = ({liked=false}) => {
-  const [isFavorited, setIsFavorited] = useState(liked); // ✅ Track favorite state
+  const [isFavorited, setIsFavorited] = useState(liked);
 
   const handleClick = () => {
     setIsFavorited((prev) => !prev); // ✅ Toggle the state when clicked
@@ -14,7 +14,7 @@ const PhotoFavButton = ({liked=false}) => {
   return (
     <div className="photo-list__fav-icon" onClick={handleClick}> {/* ✅ Clickable wrapper */}
       <div className="photo-list__fav-icon-svg">
-        <FavIcon selected={isFavorited} displayAlert={false} /> {/* ✅ Pass `selected` to control color */}
+        <FavIcon selected={isFavorited} displayAlert={false} /> {/* ✅ Corrected from `isFavorite` to `isFavorited` */}
       </div>
     </div>
   );

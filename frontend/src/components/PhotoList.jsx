@@ -52,9 +52,9 @@ const sampleDataForPhotoList = [
   },
 ];
 
-const PhotoList = ({photos = [], topic, setFavoriteCount}) => {
-  console.log("🔥 Photos received in PhotoList:", photos);
-  console.log("🔥 Selected Topic:", topic);
+const PhotoList = ({ photos = [], favoritePhotos, toggleFavorite  }) => {
+ 
+
   return (
     <ul className="photo-list">
       {photos.map((photo) => (
@@ -65,6 +65,8 @@ const PhotoList = ({photos = [], topic, setFavoriteCount}) => {
           imageSource={photo.urls.regular} // ✅ Use 'regular' size image
           username={photo.user.username}
           profile={photo.user.profile}
+          isFavorite={favoritePhotos.includes(photo.id)} //  Pass if it's favourited
+          toggleFavorite={toggleFavorite} 
         />
       ))}
     </ul>

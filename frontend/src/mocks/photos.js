@@ -261,4 +261,4 @@ const photos = [
   }
 ];
 
-export default photos;
+export default {photos};
