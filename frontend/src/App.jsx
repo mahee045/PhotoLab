@@ -60,13 +60,12 @@ const App = () => {
         /> 
 
 {selectedPhoto && (
-  <>
-    {console.log("🔥 Rendering Modal!")}  {/* ✅ Debugging */}
-    <PhotoDetailsModal 
-      photo={selectedPhoto} 
-      closeModal={closeModal} // ✅ Pass function to close modal
-    />
-  </>
+  <PhotoDetailsModal 
+    photo={selectedPhoto} 
+    closeModal={closeModal} 
+    toggleFavorite={toggleFavorite}  // ✅ Pass favorite toggle function
+    favoritePhotos={favoritePhotos}  // ✅ Pass favorite list
+  />
 )}
 
         

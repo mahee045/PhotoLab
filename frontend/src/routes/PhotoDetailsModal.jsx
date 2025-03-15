@@ -1,7 +1,7 @@
-import '../styles/PhotoDetailsModal.scss'
-import closeSymbol from '../assets/closeSymbol.svg';
+import "../styles/PhotoDetailsModal.scss";
+import PhotoList from "../components/PhotoList";  // ✅ Reuse existing component for similar photos
 
-const PhotoDetailsModal = ({ photo, closeModal }) => {
+const PhotoDetailsModal = ({ photo, closeModal, toggleFavorite, favoritePhotos }) => {
   if (!photo) return null;  // ✅ Ensure modal only shows when photo exists
 
   console.log("🔥 Data received in Modal:", photo); // ✅ Debugging
@@ -26,9 +26,19 @@ const PhotoDetailsModal = ({ photo, closeModal }) => {
             <p className="photo-details-modal__photographer-location">{photo.location.city}, {photo.location.country}</p>
           </div>
         </div>
+
+        {/* ✅ Display Similar Photos */}
+        <h3 className="photo-details-modal__header">Similar Photos</h3>
+        <PhotoList 
+          photos={Object.values(photo.similar_photos)}  // ✅ Convert object to array
+          toggleFavorite={toggleFavorite} 
+          favoritePhotos={favoritePhotos} 
+        />
+
       </div>
     </div>
   );
 };
 
 export default PhotoDetailsModal;
+
