@@ -1,15 +1,17 @@
 import "../styles/PhotoDetailsModal.scss";
-import PhotoList from "../components/PhotoList";  // ✅ Reuse existing component for similar photos
+import PhotoList from "../components/PhotoList";
+import PhotoFavButton from "../components/PhotoFavButton";  // ✅ Import the favorite button
 
 const PhotoDetailsModal = ({ photo, closeModal, toggleFavorite, favoritePhotos }) => {
-  if (!photo) return null;  // ✅ Ensure modal only shows when photo exists
+  if (!photo) return null;  
 
-  console.log("🔥 Data received in Modal:", photo); // ✅ Debugging
-
+  console.log("🔥 Data received in Modal:", photo);
+  const isFavorite = favoritePhotos.includes(photo.id);
+  
   return (
     <div className="photo-modal-overlay" onClick={closeModal}>
       <div className="photo-details-modal" onClick={(e) => e.stopPropagation()}>
-        
+
         {/* ✅ Close button */}
         <button className="photo-details-modal__close-button" onClick={closeModal}>✖</button>
 
@@ -17,6 +19,13 @@ const PhotoDetailsModal = ({ photo, closeModal, toggleFavorite, favoritePhotos }
         <div className="photo-details-modal__images">
           <img src={photo.urls.full} alt="Full View" className="photo-details-modal__image" />
         </div>
+
+        {/* ✅ Favorite Button */}
+        <PhotoFavButton 
+          photoId={photo.id} 
+          isFavorite={isFavorite}  
+          toggleFavorite={toggleFavorite} 
+        />
 
         {/* ✅ Photographer Info */}
         <div className="photo-details-modal__photographer-details">
@@ -30,7 +39,7 @@ const PhotoDetailsModal = ({ photo, closeModal, toggleFavorite, favoritePhotos }
         {/* ✅ Display Similar Photos */}
         <h3 className="photo-details-modal__header">Similar Photos</h3>
         <PhotoList 
-          photos={Object.values(photo.similar_photos)}  // ✅ Convert object to array
+          photos={Object.values(photo.similar_photos)}
           toggleFavorite={toggleFavorite} 
           favoritePhotos={favoritePhotos} 
         />
@@ -41,4 +50,3 @@ const PhotoDetailsModal = ({ photo, closeModal, toggleFavorite, favoritePhotos }
 };
 
 export default PhotoDetailsModal;
-
