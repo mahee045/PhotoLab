@@ -22,9 +22,19 @@ const App = () => {
     });
   };
 
-  const openModal = (photo) => {
-    console.log("🔥 Opening modal for photo:", photo);
-    setSelectedPhoto(photo); // ✅ Set the clicked photo
+  const openModal = (photoId) => {
+    console.log("🔥 Checking photoId:", photoId);
+    console.log("🔥 Checking photosData:", photosData); // ✅ Debugging
+  
+    // ✅ Ensure we are getting a proper ID
+    const photo = photosData.photos.find((p) => p.id === photoId);
+  
+    if (photo) {
+      console.log("🔥 Opening modal for photo:", photo);
+      setSelectedPhoto(photo);
+    } else {
+      console.error("⚠️ Photo not found for ID:", photoId);
+    }
   };
 
   const closeModal = () => {
@@ -41,20 +51,24 @@ const App = () => {
     <div className="App">
       <HomeRoute 
         photos={photosData.photos}  
-        topics={topicsData.topics}
-        selectedTopic={selectedTopic}
-        setSelectedTopic={setSelectedTopic}
-        favoritePhotos={favoritePhotos} 
-        toggleFavorite={toggleFavorite} 
-        openModal={openModal} // ✅ Ensure openModal is passed
+  topics={topicsData.topics}
+  selectedTopic={selectedTopic}
+  setSelectedTopic={setSelectedTopic}
+  favoritePhotos={favoritePhotos} 
+  toggleFavorite={toggleFavorite} 
+  openModal={openModal} // ✅ Ensure openModal is passed
         /> 
 
-    {selectedPhoto && (
-        <PhotoDetailsModal 
-          photo={selectedPhoto} 
-          closeModal={closeModal} // ✅ Pass function to close modal
-        />
-      )}
+{selectedPhoto && (
+  <>
+    {console.log("🔥 Rendering Modal!")}  {/* ✅ Debugging */}
+    <PhotoDetailsModal 
+      photo={selectedPhoto} 
+      closeModal={closeModal} // ✅ Pass function to close modal
+    />
+  </>
+)}
+
         
     </div>
   );
