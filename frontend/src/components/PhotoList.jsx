@@ -52,7 +52,7 @@ const sampleDataForPhotoList = [
   },
 ];
 
-const PhotoList = ({ photos = [], favoritePhotos, toggleFavorite  }) => {
+const PhotoList = ({ photos = [], favoritePhotos, toggleFavorite, openModal  }) => {
  
 
   return (
@@ -67,6 +67,7 @@ const PhotoList = ({ photos = [], favoritePhotos, toggleFavorite  }) => {
           profile={photo.user.profile}
           isFavorite={favoritePhotos.includes(photo.id)} //  Pass if it's favourited
           toggleFavorite={toggleFavorite} 
+          openModal={openModal}
         />
       ))}
     </ul>

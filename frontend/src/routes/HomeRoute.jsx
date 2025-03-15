@@ -3,8 +3,12 @@ import "../styles/HomeRoute.scss";
 import TopNavigationBar from "../components/TopNavigationBar";
 import PhotoList from "../components/PhotoList";
 
-const HomeRoute = ({topics =[], photos=[], selectedTopic, setSelectedTopic, favoritePhotos, toggleFavorite }) => {
+const HomeRoute = ({topics =[], photos=[], selectedTopic, setSelectedTopic, favoritePhotos = [], toggleFavorite, openModal }) => {
   
+  console.log("🔥 Rendering HomeRoute: Favorite Count:", favoritePhotos.length);
+  console.log("🔥 Checking openModal function:", openModal); // ✅ Debugging
+
+
   return (
     <div className="home-route">
       <TopNavigationBar 
@@ -17,6 +21,7 @@ const HomeRoute = ({topics =[], photos=[], selectedTopic, setSelectedTopic, favo
         favoritePhotos={favoritePhotos} // ✅ Pass favourite photos
         toggleFavorite={toggleFavorite} 
         setFavoriteCount={() => {}}
+        openModal={openModal}
       />
     </div>
   );
