@@ -1,64 +1,87 @@
-import { useState } from "react";
+import { useReducer } from "react";
 import photosData from "../mocks/photos";  
-import topicsData from "../mocks/topics";
+import topicsData from "../mocks/topics";  
 
-const useApplicationData = () => {
-  // State for selected topic
-  const [selectedTopic, setSelectedTopic] = useState("all");
+//  Define action types
+export const ACTIONS = {
+  FAV_PHOTO_ADDED: "FAV_PHOTO_ADDED",
+  FAV_PHOTO_REMOVED: "FAV_PHOTO_REMOVED",
+  SET_PHOTO_DATA: "SET_PHOTO_DATA",
+  SET_TOPIC_DATA: "SET_TOPIC_DATA",
+  SELECT_PHOTO: "SELECT_PHOTO",
+  DISPLAY_PHOTO_DETAILS: "DISPLAY_PHOTO_DETAILS",
+  CLOSE_PHOTO_MODAL: "CLOSE_PHOTO_MODAL"
+};
 
-  // State for favourited photos
-  const [favoritePhotos, setFavoritePhotos] = useState([]);
+//  Reducer function
+function reducer(state, action) {
+  switch (action.type) {
+    case ACTIONS.SET_PHOTO_DATA:
+      return { ...state, photos: action.payload };
 
-  // State for modal (selected photo)
-  const [selectedPhoto, setSelectedPhoto] = useState(null);
+    case ACTIONS.SET_TOPIC_DATA:
+      return { ...state, topics: action.payload };
 
-  // ✅ Toggle favorite photos
-  const toggleFavorite = (photoId) => {
-    setFavoritePhotos((prevFavorites) => {
-      const newFavorites = prevFavorites.includes(photoId)
-        ? prevFavorites.filter((id) => id !== photoId) // Remove if already favorited
-        : [...prevFavorites, photoId]; // Add if not favorited
-      
-      console.log(" Updated Favorites:", newFavorites); 
-      return newFavorites;
-    });
+    case ACTIONS.FAV_PHOTO_ADDED:
+      return { 
+        ...state, 
+        favoritePhotos: [...state.favoritePhotos, action.payload.id] 
+      };
+
+    case ACTIONS.FAV_PHOTO_REMOVED:
+      return { 
+        ...state, 
+        favoritePhotos: state.favoritePhotos.filter(id => id !== action.payload.id) 
+      };
+
+    case ACTIONS.SELECT_PHOTO:
+      return { ...state, selectedPhoto: action.payload.photo };
+
+    case ACTIONS.CLOSE_PHOTO_MODAL:
+      return { ...state, selectedPhoto: null };
+
+    default:
+      throw new Error(`⚠️ Unsupported action type: ${action.type}`);
+  }
+}
+
+//  Custom Hook
+export default function useApplicationData() {
+  const initialState = {
+    photos: photosData.photos,
+    topics: topicsData.topics,
+    favoritePhotos: [],
+    selectedPhoto: null
   };
 
-  // ✅ Open modal with selected photo
-  const openModal = (photoId) => {
-    console.log(" Checking photoId:", photoId);
-    console.log(" Checking photosData:", photosData);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-    // ✅ Ensure we find the correct photo
-    const photo = photosData.photos.find((p) => p.id === photoId);
-
-    if (photo) {
-      console.log(" Opening modal for photo:", photo);
-      setSelectedPhoto(photo);
+  //  Toggle favorite photos
+  const toggleFavorite = (photoId) => {
+    if (state.favoritePhotos.includes(photoId)) {
+      dispatch({ type: ACTIONS.FAV_PHOTO_REMOVED, payload: { id: photoId } });
     } else {
-      console.warn(" Photo not found for ID:", photoId);
+      dispatch({ type: ACTIONS.FAV_PHOTO_ADDED, payload: { id: photoId } });
     }
   };
 
-  // ✅ Close modal
+  //  Open Modal
+  const openModal = (photoId) => {
+    const photo = state.photos.find(p => p.id === photoId);
+    if (photo) {
+      dispatch({ type: ACTIONS.SELECT_PHOTO, payload: { photo } });
+    }
+  };
+
+  //  Close Modal
   const closeModal = () => {
-    console.log(" Closing modal");
-    setSelectedPhoto(null);
+    dispatch({ type: ACTIONS.CLOSE_PHOTO_MODAL });
   };
 
   return {
-    state: {
-      selectedTopic,
-      favoritePhotos,
-      selectedPhoto,
-    },
+    state,
     toggleFavorite,
     openModal,
-    closeModal,
-    setSelectedTopic,
-    photos: photosData.photos,
-    topics: topicsData.topics,
+    closeModal
   };
-};
-
-export default useApplicationData;
+}
