@@ -1,74 +1,45 @@
-import React, { useState } from "react";
+import React from "react";
 import "./App.scss";
 import HomeRoute from "./routes/HomeRoute"; 
-import photosData from "./mocks/photos";  
-import topicsData from "./mocks/topics";
 import PhotoDetailsModal from "./routes/PhotoDetailsModal";
+import useApplicationData from "./hooks/useApplicationData"; // ✅ Import custom Hook
 
 const App = () => {
+  const {
+    state,
+    toggleFavorite,
+    openModal,
+    closeModal,
+    setSelectedTopic,
+    photos,
+    topics
+  } = useApplicationData();
 
-  const [selectedTopic, setSelectedTopic] = useState("all");
-  const [favoritePhotos, setFavoritePhotos] = useState([]); //  Track favourited photos
-  const [selectedPhoto, setSelectedPhoto] = useState(null); // ✅ Track the selected phot
+  console.log("🔥 Photos from mock data:", photos);
+  console.log("🔥 Topics from mock data:", topics);
+  console.log("🔥 Current Favorite Photos:", state.favoritePhotos);
+  console.log("🔥 Selected Photo:", state.selectedPhoto);
 
-  const toggleFavorite = (photoId) => {
-    setFavoritePhotos((prevFavorites) => {
-      const newFavorites = prevFavorites.includes(photoId)
-        ? prevFavorites.filter((id) => id !== photoId) // Remove if already favorited
-        : [...prevFavorites, photoId]; // Add if not favorited
-      
-      console.log("🔥 Updated Favorites:", newFavorites); // Debugging
-      return newFavorites; // ✅ Return updated state
-    });
-  };
-
-  const openModal = (photoId) => {
-    console.log("🔥 Checking photoId:", photoId);
-    console.log("🔥 Checking photosData:", photosData); // ✅ Debugging
-  
-    // ✅ Ensure we are getting a proper ID
-    const photo = photosData.photos.find((p) => p.id === photoId);
-  
-    if (photo) {
-      console.log("🔥 Opening modal for photo:", photo);
-      setSelectedPhoto(photo);
-    } else {
-      console.error("⚠️ Photo not found for ID:", photoId);
-    }
-  };
-
-  const closeModal = () => {
-    console.log("🔥 Closing modal");
-    setSelectedPhoto(null); // ✅ Reset state
-  };
-
-  console.log("🔥 Photos from mock data:", photosData?.photos);
-  console.log("🔥 Topics from mock data:", topicsData?.topics);
-  console.log("🔥 Current Favorite Photos:", favoritePhotos);
-  console.log("🔥 Selected Photo:", selectedPhoto);
-  
   return (
     <div className="App">
       <HomeRoute 
-        photos={photosData.photos}  
-  topics={topicsData.topics}
-  selectedTopic={selectedTopic}
-  setSelectedTopic={setSelectedTopic}
-  favoritePhotos={favoritePhotos} 
-  toggleFavorite={toggleFavorite} 
-  openModal={openModal} // ✅ Ensure openModal is passed
-        /> 
+        photos={photos}  
+        topics={topics}
+        selectedTopic={state.selectedTopic}
+        setSelectedTopic={setSelectedTopic}
+        favoritePhotos={state.favoritePhotos}
+        toggleFavorite={toggleFavorite}
+        openModal={openModal}
+      /> 
 
-{selectedPhoto && (
-  <PhotoDetailsModal 
-    photo={selectedPhoto} 
-    closeModal={closeModal} 
-    toggleFavorite={toggleFavorite}  // ✅ Pass favorite toggle function
-    favoritePhotos={favoritePhotos}  // ✅ Pass favorite list
-  />
-)}
-
-        
+      {state.selectedPhoto && (
+        <PhotoDetailsModal 
+          photo={state.selectedPhoto} 
+          closeModal={closeModal} 
+          toggleFavorite={toggleFavorite}
+          favoritePhotos={state.favoritePhotos}
+        />
+      )}
     </div>
   );
 };
