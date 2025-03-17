@@ -5,7 +5,7 @@ import PhotoDetailsModal from "./routes/PhotoDetailsModal";
 import useApplicationData from "./hooks/useApplicationData";  //  Import custom hook
 
 const App = () => {
-  const { state, toggleFavorite, openModal, closeModal } = useApplicationData(); // ✅ Get state & actions
+  const { state, toggleFavorite, openModal, closeModal, fetchPhotosByTopic } = useApplicationData(); // ✅ Get state & actions
 
   return (
     <div className="App">
@@ -14,6 +14,7 @@ const App = () => {
         topics={state.topics}   // ✅ Pass fetched topics
         selectedTopic={state.selectedTopic}
         setSelectedTopic={state.setSelectedTopic}
+        fetchPhotosByTopic={fetchPhotosByTopic}
         favoritePhotos={state.favoritePhotos}
         toggleFavorite={toggleFavorite}
         openModal={openModal} 

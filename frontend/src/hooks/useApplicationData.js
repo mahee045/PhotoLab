@@ -76,6 +76,16 @@ export default function useApplicationData() {
     }
   };
 
+  // Fetch photos for a specific topic
+const fetchPhotosByTopic = (topicId) => {
+  axios.get(`http://localhost:8001/api/topics/${topicId}/photos`) // ✅ Fetch topic-specific photos
+    .then((response) => {
+      console.log(`🔥 Fetched Photos for Topic ${topicId}:`, response.data);
+      dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: response.data }); // ✅ Update state with new photos
+    })
+    .catch((error) => console.error("🔥 API Fetch Error:", error));
+};
+
   // Open Modal
   const openModal = (photoId) => {
     const photo = state.photos.find(p => p.id === photoId);
@@ -91,8 +101,10 @@ export default function useApplicationData() {
 
   return {
     state,
-    toggleFavorite,
-    openModal,
-    closeModal
+  toggleFavorite,
+  openModal,
+  closeModal,
+  fetchPhotosByTopic
+    
   };
 }
