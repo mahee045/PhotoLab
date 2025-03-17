@@ -5,27 +5,25 @@ import PhotoDetailsModal from "./routes/PhotoDetailsModal";
 import useApplicationData from "./hooks/useApplicationData";  //  Import custom hook
 
 const App = () => {
-  //  Use the reducer-based hook
-  const { state, toggleFavorite, openModal, closeModal } = useApplicationData();
-
-  console.log("App State:", state);
+  const { state, toggleFavorite, openModal, closeModal } = useApplicationData(); // ✅ Get state & actions
 
   return (
     <div className="App">
       <HomeRoute 
-        photos={state.photos}  
-        topics={state.topics}
-        selectedTopic="all"  
-        favoritePhotos={state.favoritePhotos}  
-        toggleFavorite={toggleFavorite}  
-        openModal={openModal}  
-      />
+        photos={state.photos}   // ✅ Pass fetched photos
+        topics={state.topics}   // ✅ Pass fetched topics
+        selectedTopic={state.selectedTopic}
+        setSelectedTopic={state.setSelectedTopic}
+        favoritePhotos={state.favoritePhotos}
+        toggleFavorite={toggleFavorite}
+        openModal={openModal} 
+      /> 
 
       {state.selectedPhoto && (
         <PhotoDetailsModal 
-          photo={state.selectedPhoto}  
-          closeModal={closeModal}  
-          toggleFavorite={toggleFavorite}  
+          photo={state.selectedPhoto}
+          closeModal={closeModal} 
+          toggleFavorite={toggleFavorite}
           favoritePhotos={state.favoritePhotos}  
         />
       )}

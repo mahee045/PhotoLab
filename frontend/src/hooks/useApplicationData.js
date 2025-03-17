@@ -1,19 +1,17 @@
-import { useReducer } from "react";
-import photosData from "../mocks/photos";  
-import topicsData from "../mocks/topics";  
+import { useEffect, useReducer } from "react";
+import axios from "axios";
 
-//  Define action types
+// Define action types
 export const ACTIONS = {
   FAV_PHOTO_ADDED: "FAV_PHOTO_ADDED",
   FAV_PHOTO_REMOVED: "FAV_PHOTO_REMOVED",
   SET_PHOTO_DATA: "SET_PHOTO_DATA",
   SET_TOPIC_DATA: "SET_TOPIC_DATA",
   SELECT_PHOTO: "SELECT_PHOTO",
-  DISPLAY_PHOTO_DETAILS: "DISPLAY_PHOTO_DETAILS",
   CLOSE_PHOTO_MODAL: "CLOSE_PHOTO_MODAL"
 };
 
-//  Reducer function
+// Reducer function
 function reducer(state, action) {
   switch (action.type) {
     case ACTIONS.SET_PHOTO_DATA:
@@ -45,18 +43,31 @@ function reducer(state, action) {
   }
 }
 
-//  Custom Hook
+// Custom Hook
 export default function useApplicationData() {
   const initialState = {
-    photos: photosData.photos,
-    topics: topicsData.topics,
+    photos: [], // ✅ Removed mock data, now an empty array
+    topics: [],
     favoritePhotos: [],
     selectedPhoto: null
   };
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  //  Toggle favorite photos
+  // Fetch API data on mount
+  useEffect(() => {
+    Promise.all([
+      axios.get("http://localhost:8001/api/photos"),
+      axios.get("http://localhost:8001/api/topics") // ✅ Fetch topics from API
+    ])
+    .then(([photosRes, topicsRes]) => {
+      dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: photosRes.data }); // ✅ Store photos
+      dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: topicsRes.data }); // ✅ Store topics
+    })
+    .catch((error) => console.error("🔥 API Fetch Error:", error));
+  }, []);
+
+  // Toggle favorite photos
   const toggleFavorite = (photoId) => {
     if (state.favoritePhotos.includes(photoId)) {
       dispatch({ type: ACTIONS.FAV_PHOTO_REMOVED, payload: { id: photoId } });
@@ -65,7 +76,7 @@ export default function useApplicationData() {
     }
   };
 
-  //  Open Modal
+  // Open Modal
   const openModal = (photoId) => {
     const photo = state.photos.find(p => p.id === photoId);
     if (photo) {
@@ -73,7 +84,7 @@ export default function useApplicationData() {
     }
   };
 
-  //  Close Modal
+  // Close Modal
   const closeModal = () => {
     dispatch({ type: ACTIONS.CLOSE_PHOTO_MODAL });
   };
