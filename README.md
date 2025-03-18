@@ -22,9 +22,9 @@ A modern React-based photo gallery application where users can explore images by
 ---
 
 ## 🫣 A Sneak Peak At PhotoLabs 
-![Main Page](Docs/mainpage.png)
-![Clicking Inidividual Photos](Docs/individualphoto.png)
-![Similar Photos](Docs/similarphotos.png)
+![Main Page](https://github.com/mahee045/PhotoLab/blob/main/Docs/mainpage.png)
+![Clicking Inidividual Photos](https://github.com/mahee045/PhotoLab/blob/main/Docs/individualphoto.png)
+![Similar Photos](https://github.com/mahee045/PhotoLab/blob/main/Docs/similarphotos.png)
 
 
 
