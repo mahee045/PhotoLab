@@ -13,7 +13,7 @@ const PhotoList = ({ photos = [], favoritePhotos, toggleFavorite, openModal  }) 
           key={photo.id} 
           photoId={photo.id}
           location={photo.location}
-          imageSource={photo.urls.regular} // ✅ Use 'regular' size image
+          imageSource={photo.urls.regular} //  Use 'regular' size image
           username={photo.user.username}
           profile={photo.user.profile}
           isFavorite={favoritePhotos.includes(photo.id)} //  Pass if it's favourited

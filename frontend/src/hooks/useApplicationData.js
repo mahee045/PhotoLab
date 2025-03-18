@@ -46,7 +46,7 @@ function reducer(state, action) {
 // Custom Hook
 export default function useApplicationData() {
   const initialState = {
-    photos: [], // ✅ Removed mock data, now an empty array
+    photos: [], //  Removed mock data, now an empty array
     topics: [],
     favoritePhotos: [],
     selectedPhoto: null
@@ -58,13 +58,13 @@ export default function useApplicationData() {
   useEffect(() => {
     Promise.all([
       axios.get("http://localhost:8001/api/photos"),
-      axios.get("http://localhost:8001/api/topics") // ✅ Fetch topics from API
+      axios.get("http://localhost:8001/api/topics") //  Fetch topics from API
     ])
     .then(([photosRes, topicsRes]) => {
-      dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: photosRes.data }); // ✅ Store photos
-      dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: topicsRes.data }); // ✅ Store topics
+      dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: photosRes.data }); //  Store photos
+      dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: topicsRes.data }); //  Store topics
     })
-    .catch((error) => console.error("🔥 API Fetch Error:", error));
+    
   }, []);
 
   // Toggle favorite photos
@@ -78,12 +78,12 @@ export default function useApplicationData() {
 
   // Fetch photos for a specific topic
 const fetchPhotosByTopic = (topicId) => {
-  axios.get(`http://localhost:8001/api/topics/${topicId}/photos`) // ✅ Fetch topic-specific photos
+  axios.get(`http://localhost:8001/api/topics/${topicId}/photos`) //  Fetch topic-specific photos
     .then((response) => {
-      console.log(`🔥 Fetched Photos for Topic ${topicId}:`, response.data);
-      dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: response.data }); // ✅ Update state with new photos
+      
+      dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: response.data }); //  Update state with new photos
     })
-    .catch((error) => console.error("🔥 API Fetch Error:", error));
+    
 };
 
   // Open Modal

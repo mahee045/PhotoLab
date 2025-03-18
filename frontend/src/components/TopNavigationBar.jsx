@@ -1,10 +1,10 @@
 import React from "react";
 import "../styles/TopNavigationBar.scss";
 import FavBadge from "./FavBadge"; //  Import FavBadge
-import TopicList from "./TopicList";
 
 
-const TopNavigationBar = ({ favoriteCount, topics, fetchPhotosByTopic }) => { // ✅ Ensure function is received
+
+const TopNavigationBar = ({ favoriteCount, topics, fetchPhotosByTopic }) => { //  Ensure function is received
 
   return (
     <div className="top-nav-bar">

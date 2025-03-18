@@ -14,7 +14,7 @@ const PhotoListItem = ({photoId, location, imageSource, username, profile, isFav
           </div>
         </div>
       </div>
-       {/* ✅ Heart icon for favoriting */}
+       {/*  Heart icon for favoriting */}
        <PhotoFavButton isFavorite={isFavorite} toggleFavorite={() => toggleFavorite(photoId)} />
     
     </div>
